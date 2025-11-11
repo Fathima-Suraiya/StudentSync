@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudentSync</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://kit.fontawesome.com/94fb025cb0.js" crossorigin="anonymous"></script>
+  </head>
+
+  <title>Sign Up — Create an account</title>
+  <style>
+    :root{--bg:#f6f8fb;--card:#ffffff;--muted:#6b7280;--accent:#4f46e5;--danger:#ef4444;--success:#10b981}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#f8fafc 0%,var(--bg) 100%);color:#111827}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
+    .card{width:100%;max-width:920px;background:var(--card);border-radius:12px;box-shadow:0 8px 30px rgba(17,24,39,0.08);display:grid;grid-template-columns:1fr 420px;overflow:hidden}
+    .hero{padding:48px;background:linear-gradient(180deg,rgba(79,70,229,0.06),transparent);display:flex;flex-direction:column;gap:20px}
+    .hero h1{margin:0;font-size:28px}
+    .hero p{margin:0;color:var(--muted)}
+
+    form{padding:28px;display:flex;flex-direction:column;gap:14px}
+    .row{display:flex;gap:12px}
+    .col{flex:1}
+    label{display:block;font-size:13px;margin-bottom:6px;color:#374151}
+    input[type="text"],input[type="email"],input[type="password"],input[type="tel"],input[type="date"],select{
+      width:100%;padding:10px 12px;border:1px solid #e6e9ef;border-radius:8px;font-size:14px;background:transparent
+    }
+    input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(79,70,229,0.06)}
+    .small{font-size:12px;color:var(--muted)}
+    .hint{font-size:12px;color:var(--muted);margin-top:6px}
+
+    .password-row{display:flex;gap:8px;align-items:center}
+    .toggle-btn{background:none;border:none;cursor:pointer;padding:6px;border-radius:6px}
+
+    .meter{height:8px;border-radius:6px;background:#eef2ff;overflow:hidden}
+    .meter > i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#f97316,#4f46e5)}
+
+    .checkbox{display:flex;gap:10px;align-items:center}
+    .btn{padding:12px 14px;border-radius:10px;border:0;background:var(--accent);color:#fff;font-weight:600;cursor:pointer}
+    .btn:disabled{opacity:0.6;cursor:not-allowed}
+
+    .muted{color:var(--muted);font-size:13px}
+    .error{color:var(--danger);font-size:13px}
+    .success{color:var(--success);font-size:13px}
+
+    .footer-note{font-size:13px;color:var(--muted);margin-top:10px}
+
+    @media (max-width:880px){
+      .card{grid-template-columns:1fr;}
+      .hero{order:2;padding:24px}
+      form{order:1;padding:20px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="region" aria-label="Sign up card">
+      <div class="hero">
+        <h1>Create your account</h1>
+        <p>Join us — one account gives you access to all features. We'll never share your information without permission.</p>
+
+        <ul class="small">
+          <li>&copy; STUDENT SYNC
+          </li>
+          <li>All rights reserved</li>
+          <li>24BCAR0047: Suraiya Fathima</li>
+          <li>24BCR00005: Hitesh P</li>
+          <li>24BCR00006: Jeeva V Reddy</li>
+          <li>24BCR00007: John Joseph</li>
+          <li>24BCAR0048: Shreyas</li>
+        </ul>
+      </div>
+
+      <form id="signupForm" novalidate>
+        <div class="row">
+          <div class="col">
+            <label for="firstName">First name</label>
+            <input id="firstName" name="firstName" type="text" autocomplete="given-name" required />
+            <div class="hint" id="firstNameError" aria-live="polite"></div>
+          </div>
+
+          <div class="col">
+            <label for="lastName">Last name</label>
+            <input id="lastName" name="lastName" type="text" autocomplete="family-name" />
+            <div class="hint" id="lastNameError"></div>
+          </div>
+        </div>
+
+        <div>
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+          <div class="hint" id="emailError"></div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label for="password">Password</label>
+            <div class="password-row">
+              <input id="password" name="password" type="password" autocomplete="new-password" required minlength="8" />
+              <button type="button" class="toggle-btn" id="togglePassword" aria-label="Show password">Show</button>
+            </div>
+            <div class="hint">At least 8 characters, mix of letters and numbers recommended.</div>
+            <div class="meter" aria-hidden="true"><i id="strengthBar" style="width:0%"></i></div>
+            <div class="hint" id="passwordError"></div>
+          </div>
+
+          <div class="col">
+            <label for="confirmPassword">Confirm password</label>
+            <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" required />
+            <div class="hint" id="confirmError"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label for="phone">Phone (optional)</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+91 81234 56789" />
+            <div class="hint" id="phoneError"></div>
+          </div>
+
+          <div class="col">
+            <label for="dob">Date of birth</label>
+            <input id="dob" name="dob" type="date" />
+            <div class="hint" id="dobError"></div>
+          </div>
+        </div>
+
+        <div>
+          <label for="gender">Gender (optional)</label>
+          <select id="gender" name="gender" aria-label="Gender select">
+            <option value="">Prefer not to say</option>
+            <option>Female</option>
+            <option>Male</option>
+            <option>Non-binary</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="checkbox">
+          <input id="terms" name="terms" type="checkbox" required />
+          <label for="terms" class="muted">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
+        </div>
+        <div id="termsError" class="hint"></div>
+
+        <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
+          <button class="btn" id="submitBtn" type="submit">Create account</button>
+          <div id="formMessage" aria-live="polite" class="muted"></div>
+        </div>
+
+        <div class="footer-note">Already have an account? <a href="/">Sign in</a></div>
+
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Basic client-side validation and UX enhancements
+    const form = document.getElementById('signupForm');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmPassword');
+    const strengthBar = document.getElementById('strengthBar');
+    const toggleBtn = document.getElementById('togglePassword');
+    const formMessage = document.getElementById('formMessage');
+
+    // Show / hide password
+    toggleBtn.addEventListener('click', () => {
+      const isHidden = password.type === 'password';
+      password.type = isHidden ? 'text' : 'password';
+      confirmPassword.type = isHidden ? 'text' : 'password';
+      toggleBtn.textContent = isHidden ? 'Hide' : 'Show';
+    });
+
+    // Password strength estimator (very simple)
+    function estimateStrength(pw){
+      let score = 0;
+      if(!pw) return 0;
+      if(pw.length >= 8) score += 1;
+      if(/[A-Z]/.test(pw)) score += 1;
+      if(/[0-9]/.test(pw)) score += 1;
+      if(/[^A-Za-z0-9]/.test(pw)) score += 1;
+      return score; // 0..4
+    }
+
+    password.addEventListener('input', () => {
+      const s = estimateStrength(password.value);
+      const pct = (s / 4) * 100;
+      strengthBar.style.width = pct + '%';
+    });
+
+    function setError(id, msg){
+      const el = document.getElementById(id);
+      el.textContent = msg;
+      el.className = msg ? 'error' : 'hint';
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Clear errors
+      formMessage.textContent = '';
+      setError('firstNameError','');setError('emailError','');setError('passwordError','');setError('confirmError','');setError('termsError','');
+
+      let valid = true;
+      const firstName = document.getElementById('firstName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const pwd = password.value;
+      const cpwd = confirmPassword.value;
+      const terms = document.getElementById('terms').checked;
+
+      if(!firstName){ setError('firstNameError','First name is required'); valid=false }
+      if(!email || !/^\S+@\S+\.\S+$/.test(email)){ setError('emailError','Please enter a valid email'); valid=false }
+      if(!pwd || pwd.length < 8){ setError('passwordError','Password must be at least 8 characters'); valid=false }
+      if(pwd !== cpwd){ setError('confirmError','Passwords do not match'); valid=false }
+      if(!terms){ setError('termsError','You must accept the terms'); valid=false }
+
+      if(!valid){ formMessage.textContent = 'Please fix the errors above.'; return }
+
+      // Simulate successful submission (replace with real fetch/ajax to backend)
+      document.getElementById('submitBtn').disabled = true;
+      formMessage.textContent = 'Creating account...';
+
+      setTimeout(()=>{
+        formMessage.className = 'success';
+        formMessage.textContent = 'Account created successfully! CLick on Sign in to log in to your account'; 
+        form.reset();
+        strengthBar.style.width = '0%';
+        document.getElementById('submitBtn').disabled = false;
+      }, 900);
+    });
+  </script>
+</body>
+</html>
+
+</body>
+</html>
